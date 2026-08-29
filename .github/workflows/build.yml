@@ -1,0 +1,35 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+    paths-ignore: [ 'docs/**', 'site/**', '**.md' ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: '8.0.x' }
+      - name: Publish (self-contained, single-file)
+        run: dotnet publish src/RateScoutMiner/RateScoutMiner.csproj -c Release -o out
+      - name: Package
+        shell: pwsh
+        run: Compress-Archive -Path out\* -DestinationPath RateScout-Miner-Windows.zip -Force
+      - uses: actions/upload-artifact@v4
+        with: { name: RateScout-Miner-Windows, path: RateScout-Miner-Windows.zip }
+      - name: Release on tag
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: RateScout-Miner-Windows.zip
+          body: |
+            RateScout Miner — GUI поверх официального XMRig (майнинг Monero на вашей машине).
+            ⚠️ Антивирус может пометить XMRig как riskware — это ожидаемо (XMRig = майнер).
+            Комиссия: 1% dev-fee автору + обязательный 1% XMRig. Запуск майнинга — только по кнопке.

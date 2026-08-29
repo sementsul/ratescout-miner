@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RateScout Miner — GUI-майнер Monero (XMRig)</title>
+<meta name="description" content="RateScout Miner — простой графический майнер Monero поверх официального XMRig. Скачать для Windows.">
+<link rel="stylesheet" href="https://ratescout.ru/assets/styles.css">
+<style>
+  .app{padding:16px;margin:16px 0}
+  .dosbtn{display:inline-block;background:#00aaaa;color:#111 !important;font-weight:bold;padding:10px 20px;text-decoration:none}
+  .dosbtn:hover{background:#55ffff}
+  .muted{color:#a8a8a8;font-size:13px}
+  .warn{color:#ffff55}
+  ul.dos li{margin:4px 0}
+</style>
+</head>
+<body>
+<div id="wrapper"><div id="header">
+  <h1 id="logotop"><a href="https://ratescout.ru/"><span class="logo">[⇄]</span> RateScout<span class="tld">.ru</span></a></h1>
+</div>
+<div id="topnav" class="doscyan dosborder">
+  <ul id="menu-top">
+    <li><a href="https://ratescout.ru/">Монитор</a></li>
+    <li><a href="https://ratescout.ru/kursy/">Курсы</a></li>
+    <li><a href="https://app.ratescout.ru/">Приложение</a></li>
+    <li><a href="/">Майнер</a></li>
+    <li><a href="https://ratescout.ru/faq/">Вопросы</a></li>
+  </ul>
+</div>
+<div id="main">
+  <div id="content" style="float:none;width:100%">
+    <nav class="crumbs"><a href="https://ratescout.ru/">Монитор</a> / Майнер</nav>
+    <h1>RateScout Miner ⛏</h1>
+    <p class="lead">Простой графический майнер <b>Monero (XMR)</b> поверх официального
+      <a href="https://github.com/xmrig/xmrig">XMRig</a>. Вы указываете пул и кошелёк, жмёте «Старт» —
+      майнинг идёт <b>на вашей машине</b>. Дизайн — как у RateScout.</p>
+
+    <div class="app dosborder">
+      <h3 style="color:#55ffff;margin-top:0">Скачать (Windows)</h3>
+      <a class="dosbtn" href="https://github.com/sementsul/ratescout-miner/releases/latest/download/RateScout-Miner-Windows.zip">Скачать .zip</a>
+      <p class="muted">Распакуйте и запустите <code>RateScout-Miner.exe</code>. Приложение само скачает официальный XMRig.</p>
+    </div>
+
+    <div class="app dosborder">
+      <h3 style="color:#55ffff;margin-top:0">Честно и открыто</h3>
+      <ul class="dos">
+        <li>Майнит <b>только по кнопке «Старт»</b> и <b>только на этом компьютере</b>. Ничего скрытого/фонового.</li>
+        <li class="warn">⚠️ Антивирус/SmartScreen может пометить XMRig как «riskware» — это ожидаемо для любого майнера.</li>
+        <li>Комиссия: <b>1% dev-fee</b> автору проекта + обязательный <b>1% XMRig</b> (разработчикам XMRig).</li>
+        <li>Исходный код: <a href="https://github.com/sementsul/ratescout-miner">GitHub</a>. Основан на XMRig (MIT).</li>
+      </ul>
+    </div>
+
+    <p class="muted">Все версии — на странице
+      <a href="https://github.com/sementsul/ratescout-miner/releases">релизов</a>. Веб-версия курсов: <a href="https://ratescout.ru/">ratescout.ru</a>.</p>
+  </div>
+</div>
+<div id="footer" class="dosborder">© 2026 RateScout · майнер на базе XMRig (MIT) · <a href="https://ratescout.ru/">ratescout.ru</a></div>
+</div>
+</body>
+</html>
