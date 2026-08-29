@@ -41,14 +41,18 @@ public sealed class XmrigManager
         http.DefaultRequestHeaders.UserAgent.ParseAdd("RateScoutMiner");
         var json = await http.GetStringAsync("https://api.github.com/repos/xmrig/xmrig/releases/latest");
         using var doc = JsonDocument.Parse(json);
-        string? url = null;
+        string? url = null, gcc = null;
         foreach (var a in doc.RootElement.GetProperty("assets").EnumerateArray())
         {
-            var name = a.GetProperty("name").GetString() ?? "";
-            if (name.EndsWith(".zip") && (name.Contains("msvc-win64") || name.Contains("gcc-win64")))
-            { url = a.GetProperty("browser_download_url").GetString(); if (name.Contains("msvc")) break; }
+            var name = (a.GetProperty("name").GetString() ?? "").ToLowerInvariant();
+            var dl = a.GetProperty("browser_download_url").GetString();
+            // актуальные имена: xmrig-x.y.z-windows-x64.zip (MSVC) и -windows-gcc-x64.zip; arm64 пропускаем
+            if (!name.EndsWith(".zip") || !name.Contains("windows") || !name.Contains("x64") || name.Contains("arm"))
+                continue;
+            if (name.Contains("gcc")) gcc = dl; else { url = dl; break; }  // предпочитаем MSVC-сборку
         }
-        if (url == null) throw new Exception("Не нашёл Windows-сборку в релизе XMRig.");
+        url ??= gcc;
+        if (url == null) throw new Exception("Не нашёл Windows-сборку (x64) в релизе XMRig.");
 
         var zip = Path.Combine(BaseDir, "xmrig.zip");
         var bytes = await http.GetByteArrayAsync(url);
